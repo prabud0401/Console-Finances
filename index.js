@@ -86,3 +86,44 @@ var finances = [
   ['Jan-2017', 138230],
   ['Feb-2017', 671099],
 ];
+
+var finances = [
+  // ... (your financial data)
+];
+
+var totalMonths = finances.length;
+var totalProLos = 0;  // Initialize totalProLos
+var change;
+var totalChange = 0;  // Initialize totalChange
+var greatestIncrease = { date: "", amount: -Infinity };
+var greatestDecrease = { date: "", amount: Infinity };
+
+for (var i = 1; i < finances.length; i++) {
+  totalProLos += finances[i][1];
+
+  change = finances[i][1] - finances[i-1][1];
+  totalChange += change;
+
+  // Check for greatest increase
+  if (change > greatestIncrease.amount) {
+    greatestIncrease.amount = change;
+    greatestIncrease.date = finances[i][0];
+  }
+
+  // Check for greatest decrease
+  if (change < greatestDecrease.amount) {
+    greatestDecrease.amount = change;
+    greatestDecrease.date = finances[i][0];
+  }
+}
+
+var noOfMonths = totalMonths - 1;
+var average = totalChange / noOfMonths;
+
+console.log("Financial Analysis");
+console.log("----------------------------");
+console.log("Total in Profits/Losses: " + totalProLos);
+console.log("Total Months: " + totalMonths);
+console.log("Average Change: " + average);
+console.log("Greatest Increase in Profits/Losses: " + greatestIncrease.date + " ($" + greatestIncrease.amount + ")");
+console.log("Greatest Decrease in Profits/Losses: " + greatestDecrease.date + " ($" + greatestDecrease.amount + ")");
